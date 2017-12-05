@@ -12,6 +12,8 @@ public class BackgroundScript : MonoBehaviour {
 		startingPosition = transform.position;
 	}
 
+	// Oi
+
 	private void Update(){
 	
 		transform.Translate ((new Vector3 (0f, -1f, 0f)) * speed * Time.deltaTime);
