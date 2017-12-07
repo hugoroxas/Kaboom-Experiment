@@ -950,7 +950,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jump: 7
+  force: 5
   speed: 4
+  ballPrefab: {fileID: 1038160948520280, guid: 92fb66285fe8afc4f94e9cf9c44abe06, type: 2}
 --- !u!61 &1573116025
 BoxCollider2D:
   m_ObjectHideFlags: 0

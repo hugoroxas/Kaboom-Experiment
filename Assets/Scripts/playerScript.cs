@@ -5,11 +5,21 @@ using UnityEngine;
 public class playerScript : MonoBehaviour {
 	[SerializeField]
 	private float jump;
+
 	private float horizontalMove;
+
 	[SerializeField]
 	private float speed=2f;
+
 	private Rigidbody2D myRigidbody2D;
 	private bool grounded=false;
+
+	[SerializeField]
+	private GameObject ballPrefab;
+
+	private GameObject shootingBall;
+
+	private Vector3 direction;
 
 	private void Awake(){
 
@@ -26,6 +36,13 @@ public class playerScript : MonoBehaviour {
 					myRigidbody2D.velocity = new Vector2 (myRigidbody2D.velocity.x, myRigidbody2D.position.y);
 				}
 			}
+		}
+		if (Input.GetKeyDown(KeyCode.J)){
+			
+			Instantiate (ballPrefab, transform.position, Quaternion.identity);
+			direction = Camera.main.ScreenToWorldPoint (Input.mousePosition) - transform.position;
+			FindObjectOfType<GameObject>().GetComponent<BallScript>().ShootDirection(direction);
+
 		}
 
 		horizontalMove = Input.GetAxis ("Horizontal");
