@@ -2,27 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class spawner : MonoBehaviour {
+public class Spawner : MonoBehaviour {
 	[SerializeField]
 	private GameObject plataform;
 	private float initialTime;
-	[SerializeField]
-	private float speed = 3f;
+	private float speed;
 	private Rigidbody2D rigidbody2d;
 	[SerializeField]
 	private float timeToSpawn = 2f;
 	private float position;
 
-
 	private void Awake(){
-	
 		rigidbody2d = GetComponent<Rigidbody2D>();
 	}
+	private void Start(){
 
+
+	}
 	private void FixedUpdate(){
 		
 		rigidbody2d.velocity =
-			new Vector2 (transform.right.x*speed, 0f);
+			new Vector2 (transform.right.x*speed,0f);
 		
 	}
 
@@ -36,7 +36,9 @@ public class spawner : MonoBehaviour {
 				new Vector3(transform.position.x,(transform.position.y)-1,0f),
 				Quaternion.identity
 			);
+			speed = Random.Range (2f, 7f);
 			initialTime = Time.time;
+			//print (speed);
 		}
 
 	}

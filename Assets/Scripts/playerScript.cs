@@ -2,65 +2,60 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class playerScript : MonoBehaviour {
+public class PlayerScript : MonoBehaviour
+{
+    [SerializeField]
+    protected float jump;
+    protected float horizontalMove;
+    [SerializeField]
+    protected float speed = 2f;
+    protected Rigidbody2D myRigidbody2D;
+    protected bool grounded = false;
 	[SerializeField]
-	private float jump;
-
-	private float horizontalMove;
-
+	protected GameObject prefabBomb;
 	[SerializeField]
-	private float speed=2f;
+	protected GameObject prefabBombAntiGrav;
+    [SerializeField]
+    protected float projectileSpeed = 20f;
+    protected int playerAim;
+    protected bool facingRight = false;
+    protected int gotBomb = 0;
+    protected int maxBomb = 5;
+    protected Animator myAnimator;
 
-	private Rigidbody2D myRigidbody2D;
-	private bool grounded=false;
+    private void Awake(){
+        myAnimator = GetComponent<Animator>();
+        myRigidbody2D = GetComponent<Rigidbody2D>();
+    }
 
-	[SerializeField]
-	private GameObject ballPrefab;
+    protected virtual void Update()
+    {
+        
+    }
 
-	private GameObject shootingBall;
+    private void FixedUpdate(){
+            myRigidbody2D.velocity =
+            new Vector2(horizontalMove * speed, myRigidbody2D.velocity.y);
 
-	private Vector3 direction;
+    }
 
-	private void Awake(){
+    private void OnTriggerEnter2D(Collider2D other){
+        grounded = true;
+        if (other.CompareTag("GotABomb") && gotBomb == 0 ){
+            gotBomb = gotBomb + 1;
+        }
+        print(gotBomb);
+    }
 
-		myRigidbody2D = GetComponent<Rigidbody2D> ();
-	}
-	private void Update(){
-		if (Input.GetKeyDown (KeyCode.Space)|| Input.GetKeyDown(KeyCode.UpArrow)
-			||Input.GetKeyDown(KeyCode.W)){
-				if (grounded) {
-					myRigidbody2D.velocity = new Vector2 (myRigidbody2D.velocity.x, jump);
-				}else{
-			if (Input.GetKeyUp (KeyCode.Space) || Input.GetKeyUp (KeyCode.UpArrow)
-			    || Input.GetKeyUp (KeyCode.W)) {
-					myRigidbody2D.velocity = new Vector2 (myRigidbody2D.velocity.x, myRigidbody2D.position.y);
-				}
-			}
-		}
-		if (Input.GetKeyDown(KeyCode.J)){
-			
-			Instantiate (ballPrefab, transform.position, Quaternion.identity);
-			direction = Camera.main.ScreenToWorldPoint (Input.mousePosition) - transform.position;
-			FindObjectOfType<GameObject>().GetComponent<BallScript>().ShootDirection(direction);
-
-		}
-
-		horizontalMove = Input.GetAxis ("Horizontal");
-	}
-	private void FixedUpdate (){
-
-
-		myRigidbody2D.velocity =
-			new Vector2 (horizontalMove*speed,myRigidbody2D.velocity.y);
-
-	}
-	private void OnTriggerEnter2D(Collider2D other){
-	grounded = true;
-		print ("on the floor");
-}
-	private void OnTriggerExit2D(Collider2D other){
-	grounded = false;
-		print ("on the air");
-}
-
+    private void OnTriggerExit2D(Collider2D other){
+        grounded = false;
+    }
+    private void Faced(){
+        if (facingRight){
+            transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+        }
+        if (!facingRight){
+            transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+        }
+    }
 }

@@ -15,7 +15,7 @@ public class BackgroundScript : MonoBehaviour {
 	private void Update(){
 	
 		transform.Translate ((new Vector3 (0f, -1f, 0f)) * speed * Time.deltaTime);
-		if(transform.position.y <-6.431f) 
+		if(transform.position.y <-5.05f) 
 			transform.position = startingPosition;
 	}
 }

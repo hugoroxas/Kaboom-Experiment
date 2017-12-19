@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class plataformScript : MonoBehaviour {
+public class PlataformScript : MonoBehaviour {
 	[SerializeField]
 	private float speed = 3f;
 	private float verticalMove;
@@ -11,9 +11,6 @@ public class plataformScript : MonoBehaviour {
 
 	private void Awake(){
 		rigidbody2d = GetComponent <Rigidbody2D> ();
-		 
-			
-
 	}
 	private void FixedUpdate(){
 	
